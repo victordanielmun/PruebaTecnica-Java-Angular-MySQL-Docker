@@ -1,5 +1,5 @@
-# Dockerfile para Spring Boot
-FROM eclipse-temurin:17-jdk-jammy as builder
+# Imagen base con Maven y Java preinstalados
+FROM maven:3.9.5-eclipse-temurin-17 as builder
 
 # Establecer directorio de trabajo
 WORKDIR /app
@@ -8,9 +8,9 @@ WORKDIR /app
 COPY . .
 
 # Construir la aplicación
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
-# Imagen de producción
+# Imagen de producción con JRE
 FROM eclipse-temurin:17-jre-jammy
 
 # Establecer directorio de trabajo
